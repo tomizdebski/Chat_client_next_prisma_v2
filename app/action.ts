@@ -5,6 +5,7 @@ import { authOptions } from "./lib/auth";
 
 export async function postData(formData: FormData) {
   "use server";
+  console.log("formData", formData);
   const session = await getServerSession(authOptions);
   const message = formData.get("message");
 

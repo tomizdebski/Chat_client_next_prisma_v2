@@ -41,7 +41,7 @@ export default async function RootLayout({
                 <Logout/>
               </div>
             ) : (
-              <NavLogin/>
+              null//<NavLogin/>
             )}
           </nav>
           <main >{children}</main>

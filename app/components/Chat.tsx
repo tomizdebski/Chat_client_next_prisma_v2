@@ -4,7 +4,7 @@ import Form from "../components/Form";
 import socketIO from "socket.io-client";
 
 
-interface iAppProps {
+export interface iAppProps {
     data: {
         User: {
             image: string | null,
@@ -23,7 +23,7 @@ export default function ChatComponent({data, session}: iAppProps) {
     const [typingStatus, setTypingStatus] = useState("");
     const lastMessageRef = useRef<HTMLDivElement | null>(null);
     
-    console.log(data);
+    console.log("Chat data: ", data);
     console.log(session);
     
    
@@ -47,7 +47,7 @@ export default function ChatComponent({data, session}: iAppProps) {
             
             </div>
         </div>
-        <Form socket={socket}/>
+        <Form socket={socket} data={data} session={session}/>
         </>
 
     )
