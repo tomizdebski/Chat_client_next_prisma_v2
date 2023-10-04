@@ -4,12 +4,14 @@ import {redirect} from 'next/navigation'
 import Form from "../components/Form";
 import { prisma } from "../lib/db";
 import ChatComponent from "../components/Chat";
+import socketIO from "socket.io-client";
 
 async function getData() {
     const data = await prisma.message.findMany({
         select: {
             message: true,
             id: true,
+            socketID: true,
             User: {
                 select: {
                     name: true,
@@ -26,8 +28,11 @@ async function getData() {
 }
 
 export default async function ChatHomePage() {
+
     const session = await getServerSession(authOptions);
     const data = await getData();
+    
+    console.log(data);
 
     if(!session) {
         redirect("/");
@@ -35,8 +40,7 @@ export default async function ChatHomePage() {
 
     return (
         <div className="h-screen bg-gray-200 flex flex-col">
-            <ChatComponent data={data as any}/>
-            <Form/>
+            <ChatComponent data={data as any} session={session}/>
         </div>
     )
 }

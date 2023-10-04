@@ -61,5 +61,6 @@ model Message {
   message   String
   User      User?    @relation(fields: [email], references: [email])
   email     String?
+  socketID  String?
   createdAt DateTime @default(now())
 }
