@@ -2,26 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+* {
+    @apply box-border m-0 p-0;
+    font-family: "Poppins", sans-serif;
   }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+  .chat {
+    @apply w-full h-screen flex items-center;
+  }
+  .chat__sidebar {
+    @apply h-full bg-gray-600 flex-[0.2] p-5 border-r-gray-900 border-r border-solid text-white;
+  }
+  .chat__main {
+    @apply h-full flex-[0.8];
+  }
+  .chat__header {
+    @apply mt-[30px] mb-5 mx-0;
+  }
+  .chat__users > * {
+    @apply text-[#607eaa] text-sm mb-2.5;
+  }
+  .online__users > * {
+    @apply text-[rgb(238,102,102)] italic mb-2.5;
+  }
+  
+  .chat__mainHeader {
+    @apply w-full h-[10vh] flex items-center justify-between bg-gray-600 p-5 text-white;
+  }
+  
+  .leaveChat__btn {
+    @apply w-[150px] bg-[#d1512d] cursor-pointer text-[#eae3d2] p-2.5 border-[none] rounded-l-3xl rounded-t-3xl;
+    outline: none;
+  }
+  .message__container {
+    @apply w-full h-[80vh] bg-white overflow-y-scroll p-5;
+  }
+  .message__container > * {
+    @apply mb-2.5;
+  }
+  .chat__footer {
+    @apply bg-gray-600 h-[10vh] p-2.5;
+  }
+  .form {
+    @apply w-full h-full flex items-center justify-between;
+  }
+  .message {
+    @apply w-4/5 h-full border p-[15px] rounded-l-3xl rounded-t-3xl border-solid border-[#ddd];
+    outline: none;
+  }
+  .sendBtn {
+    @apply rounded-l-3xl rounded-t-3xl  w-[150px] bg-[green] text-[#eae3d2] cursor-pointer p-2.5 border-[none] hover:bg-[rgb(129,201,129)];
+    outline: none;
+  }
+  .message__recipient {
+    @apply bg-red-300 w-[300px] text-[15px] p-2.5 rounded-r-xl rounded-t-xl;
+  }
+  .message__sender {
+    @apply bg-blue-300 max-w-[300px] text-[15px] ml-auto p-2.5 rounded-l-xl rounded-t-xl;
+  }
+  .message__chats > p {
+    @apply text-[13px];
+  }
+  .sender__name {
+    @apply text-right;
+  }
+  .message__status {
+    @apply fixed text-[13px] italic bottom-[50px];
+  }
+  
+  
+  .chat-login-container {
+    @apply flex justify-center items-center h-screen;
+  }
+  .chat-login-bubble {
+    @apply bg-[#007bff] text-white shadow-[0_0_10px_rgba(0,0,0,0.2)] text-center max-w-[300px] p-5 rounded-[10px];
+  }
+  .chat-login-input {
+    @apply w-full mx-0 my-2.5 p-2 rounded-[5px] border-[none];
+  }
+  .chat-login-button {
+    @apply bg-white text-[#007bff] cursor-pointer font-[bold] px-5 py-2.5 rounded-[5px] border-[none] hover:bg-[#007bff] hover:text-white;
+  }
+  
