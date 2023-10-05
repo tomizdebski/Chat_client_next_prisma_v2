@@ -1,64 +1,41 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export interface IMessage {
-  name?: string;
-  text: string;
-  content: string;
-  id: string;
-  socketID: string;
-}
-
-export type ChatBodyProps = {
-  messages: IMessage[];
-  lastMessageRef: React.MutableRefObject<HTMLDivElement | null>;
-  typingStatus: any
-};
-
-// const ChatBody = ({
-//   messages,
-//   lastMessageRef,
-//   typingStatus,
-// }: ChatBodyProps) => {
 
 const ChatBody = ({
   messages,
   lastMessageRef,
   typingStatus,
+  socket,
+  session,
 }: any) => {
 
   const router = useRouter();
 
-  const handleLeaveChat = () => {
-    localStorage.removeItem("userName");
-    router.push("/");
-  };
-
-  console.log(messages);
+  console.log('messages user name',messages[0].User.name);
+  console.log('session name',session.user.name);
 
   return (
     <>
-      <header className="chat__mainHeader">
+      {/* <header className="chat__mainHeader">
         <p>Spotkanie z kolegami</p>
-        <button className="leaveChat__btn" onClick={handleLeaveChat}>
-          Wyjdź z czatu
-        </button>
-      </header>
+        
+      </header> */}
 
       <div className="message__container">
-        {messages.map((message) =>
-          message.name === localStorage.getItem("userName") ? (
+        {messages.map((message: any) =>
+          message.User.name === session.user.name ? (
             <div className="message__chats" key={message.id}>
               <p className="sender__name">Ja</p>
               <div className="message__sender">
-                <p>{message.text}</p>
+                <p>{message.message}</p>
               </div>
             </div>
           ) : (
             <div className="message__chats" key={message.id}>
-              <p>{message.name}</p>
+              <p>{message.user.name}</p>
               <div className="message__recipient">
-                <p>{message.text}</p>
+                <p>{message.message}</p>
               </div>
             </div>
           )

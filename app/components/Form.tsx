@@ -24,17 +24,12 @@ export default function Form({ socket, data, session }: { socket: any; data: any
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
       });
-      // checkPageStatus(message, localStorage.getItem("userName"))
     }
-
     setMessage("");
   };
 
   return (
     <form
-    //   action={async (formData) => {
-    //     await postData(formData);
-    //   }}
       className="p-6 fixed bottom-0 left-0 w-full bg-white"
       onSubmit={handleSendMessage}
     >
