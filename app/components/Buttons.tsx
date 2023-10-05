@@ -26,11 +26,27 @@ export function NavLogin() {
 
 export function MainLogin() {
     return (
+      <div className="flex flex-col gap-4" >
       <button
         onClick={() => signIn('github')}
         className="w-full flex items-center justify-center gap-2 rounded-l-3xl rounded-t-3xl bg-teal-500 px-8 py-3 text-center text-sm font-semibold text-white ring-teal-300 transition duration-100 hover:bg-teal-600 md:text-base"
       >
         Zaloguj przez Github
       </button>
+      <button
+      onClick={() => signIn('facebook')}
+      className="w-full flex items-center justify-center gap-2 rounded-l-3xl rounded-t-3xl bg-teal-500 px-8 py-3 text-center text-sm font-semibold text-white ring-teal-300 transition duration-100 hover:bg-teal-600 md:text-base"
+    >
+      Zaloguj przez Facebook
+    </button>
+    <button
+      onClick={() => signIn('google')}
+      className="w-full flex items-center justify-center gap-2 rounded-l-3xl rounded-t-3xl bg-teal-500 px-8 py-3 text-center text-sm font-semibold text-white ring-teal-300 transition duration-100 hover:bg-teal-600 md:text-base"
+    >
+      Zaloguj przez Google
+    </button>
+    </div> 
     );
   }
+
+  
