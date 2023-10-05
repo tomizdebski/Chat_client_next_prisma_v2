@@ -1,19 +1,39 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useState, useRef, useEffect } from "react";
+import { IMessage } from "../../types/types";
 
-
-const ChatBody = ({
-  messages,
-  lastMessageRef,
-  typingStatus,
-  socket,
-  session,
-}: any) => {
-
+const ChatBody = ({ socket, session }: any) => {
   const router = useRouter();
+  const [messages, setMessages] = useState<IMessage[]>([]);
+  const [typingStatus, setTypingStatus] = useState("");
+  const lastMessageRef = useRef<HTMLDivElement | null>(null);
 
-  console.log('messages user name',messages[0].User.name);
-  console.log('session name',session.user.name);
+  useEffect(() => {
+    function fetchMessages() {
+      fetch(process.env.NEXT_PUBLIC_URL_API + "/api" as string)
+        .then((response) => response.json())
+        .then((data) => setMessages(data.messages));
+    }
+    fetchMessages();
+  }, []);
+
+  useEffect(() => {
+    socket.on("messageResponse", (data: IMessage) =>
+      setMessages([...messages, data])
+    );
+  }, [socket, messages]);
+
+  useEffect(() => {
+    //scroll to last message
+    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    socket.on("typingResponse", (data: any) => setTypingStatus(data));
+  }, [socket]);
+
+  console.log(messages)
 
   return (
     <>
@@ -23,19 +43,19 @@ const ChatBody = ({
       </header> */}
 
       <div className="message__container">
-        {messages.map((message: any) =>
-          message.User.name === session.user.name ? (
+        {messages.map((message) =>
+          message.name === session.user.name ? (
             <div className="message__chats" key={message.id}>
               <p className="sender__name">Ja</p>
               <div className="message__sender">
-                <p>{message.message}</p>
+                <p>{message.text}</p>
               </div>
             </div>
           ) : (
             <div className="message__chats" key={message.id}>
-              <p>{message.user.name}</p>
+              <p>{message.name}</p>
               <div className="message__recipient">
-                <p>{message.message}</p>
+                <p>{message.text}</p>
               </div>
             </div>
           )

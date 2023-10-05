@@ -10,7 +10,7 @@
     @apply w-full h-screen flex items-center;
   }
   .chat__sidebar {
-    @apply h-full bg-gray-600 flex-[0.2] p-5 border-r-gray-900 border-r border-solid text-white;
+    @apply h-[100vh] bg-gray-300 flex-[0.2] p-5   text-teal-500;
   }
   .chat__main {
     @apply h-full flex-[0.8];
@@ -34,7 +34,7 @@
     outline: none;
   }
   .message__container {
-    @apply w-full h-[80vh] bg-white overflow-y-scroll p-5;
+    @apply w-full h-[100vh] bg-gray-200 overflow-y-scroll p-5;
   }
   .message__container > * {
     @apply mb-2.5;

@@ -29,16 +29,17 @@ export default function Form({ socket, data, session }: { socket: any; data: any
   };
 
   return (
+    
     <form
-      className="p-6 fixed bottom-0 left-0 w-full bg-white"
+      className="p-6 fixed bottom-0 left-0 w-full bg-gray-200 "
       onSubmit={handleSendMessage}
     >
-      <div className="flex">
+      <div className="flex gap-4">
         <input
           type="text"
           name="message"
           placeholder="Napisz wiadomość ..."
-          className="flex-grow py-2 px-4 outline-none"
+          className="flex-grow py-2 px-4 outline-none rounded-full"
           value={message}
           onChange={(e) => setMessage((e.target as HTMLInputElement).value)}
           onKeyDown={handleTyping}
@@ -50,5 +51,6 @@ export default function Form({ socket, data, session }: { socket: any; data: any
         </button>
       </div>
     </form>
+    
   );
 }
