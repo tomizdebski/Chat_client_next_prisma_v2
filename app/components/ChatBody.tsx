@@ -1,53 +1,50 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useState, useRef, useEffect } from "react";
+import { IMessage } from "../../types/types";
 
-export interface IMessage {
-  name?: string;
-  text: string;
-  content: string;
-  id: string;
-  socketID: string;
-}
-
-export type ChatBodyProps = {
-  messages: IMessage[];
-  lastMessageRef: React.MutableRefObject<HTMLDivElement | null>;
-  typingStatus: any
-};
-
-// const ChatBody = ({
-//   messages,
-//   lastMessageRef,
-//   typingStatus,
-// }: ChatBodyProps) => {
-
-const ChatBody = ({
-  messages,
-  lastMessageRef,
-  typingStatus,
-}: any) => {
-
+const ChatBody = ({ socket, session }: any) => {
   const router = useRouter();
+  const [messages, setMessages] = useState<IMessage[]>([]);
+  const [typingStatus, setTypingStatus] = useState("");
+  const lastMessageRef = useRef<HTMLDivElement | null>(null);
 
-  const handleLeaveChat = () => {
-    localStorage.removeItem("userName");
-    router.push("/");
-  };
+  useEffect(() => {
+    function fetchMessages() {
+      fetch(process.env.NEXT_PUBLIC_URL_API + "/api" as string)
+        .then((response) => response.json())
+        .then((data) => setMessages(data.messages));
+    }
+    fetchMessages();
+  }, []);
 
-  console.log(messages);
+  useEffect(() => {
+    socket.on("messageResponse", (data: IMessage) =>
+      setMessages([...messages, data])
+    );
+  }, [socket, messages]);
+
+  useEffect(() => {
+    //scroll to last message
+    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    socket.on("typingResponse", (data: any) => setTypingStatus(data));
+  }, [socket]);
+
+  console.log(messages)
 
   return (
     <>
-      <header className="chat__mainHeader">
+      {/* <header className="chat__mainHeader">
         <p>Spotkanie z kolegami</p>
-        <button className="leaveChat__btn" onClick={handleLeaveChat}>
-          Wyjdź z czatu
-        </button>
-      </header>
+        
+      </header> */}
 
       <div className="message__container">
         {messages.map((message) =>
-          message.name === localStorage.getItem("userName") ? (
+          message.name === session.user.name ? (
             <div className="message__chats" key={message.id}>
               <p className="sender__name">Ja</p>
               <div className="message__sender">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect} from 'react';
 
 
 export interface IUser {
@@ -25,7 +25,7 @@ const ChatBar = ({socket}:any) => {
 
   return (
     <div className="chat__sidebar">
-      <h2>Chat</h2>
+      
       <div>
         <h4 className="chat__header">Aktywni użytkownicy</h4>
         <div className="chat__users">

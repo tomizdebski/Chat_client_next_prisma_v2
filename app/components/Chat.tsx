@@ -2,26 +2,14 @@
 import { useEffect, useState, useRef } from "react";
 import Form from "../components/Form";
 import socketIO from "socket.io-client";
+import { iAppProps } from "../../types/types";
+import ChatBody from "./ChatBody";
+import ChatBar from "./ChatBar";
 
-
-export interface iAppProps {
-    data: {
-        User: {
-            image: string | null,
-            name: string | null
-        };
-        message: string;
-        socketID: string;
-    }[],
-    session: any
-}
 
 export default function ChatComponent({data, session}: iAppProps) {
 
     const [socket, setSocket] = useState<any | null>(null);
-   
-    const [typingStatus, setTypingStatus] = useState("");
-    const lastMessageRef = useRef<HTMLDivElement | null>(null);
     
     console.log("Chat data: ", data);
     console.log(session);
@@ -31,24 +19,31 @@ export default function ChatComponent({data, session}: iAppProps) {
    useEffect(() => {
     const socket = socketIO(process.env.NEXT_PUBLIC_URL_API as string);
     setSocket(socket);
+    return () => {
+        socket.disconnect();
+    }
    }, []);
-    
    
-   
-   if (socket === null) return <div>Connecting socket ...</div>;    
 
-   console.log(socket);
+
+    
+   if (socket === null) return <div>Connecting socket ...</div>;    
+    console.log(socket);
 
     return (
-        <>
-        <div className="p-6 flex-grow max-h-screen overflow-auto py-32 bg-blue-600">
-
-            <div className="flex flex-col gap-4">
-            
+        
+        <div className=" flex-grow max-h-screen  py-28 ">
+        <div className="chat">  
+        <ChatBar socket={socket} />
+            <div className="chat__main">
+            <ChatBody socket={socket} session={session} />
+            <Form socket={socket} data={data} session={session}/>
             </div>
+            
         </div>
-        <Form socket={socket} data={data} session={session}/>
-        </>
+        </div>
+        
+    
 
     )
 }
