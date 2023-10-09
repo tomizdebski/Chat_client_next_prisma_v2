@@ -12,14 +12,19 @@ export default function ChatComponent({data, session}: iAppProps) {
     const [socket, setSocket] = useState<any | null>(null);
     
     console.log("Chat data: ", data);
-    console.log(session);
+    console.log('Session Chat', session.user);
     
    
 
    useEffect(() => {
     const socket = socketIO(process.env.NEXT_PUBLIC_URL_API as string);
+    console.log('chat use effect',socket);
+
+    socket.emit("newUser", { userName: session.user.name, socketID: socket.id, image: session.user.image });
+    
     setSocket(socket);
     return () => {
+
         socket.disconnect();
     }
    }, []);
