@@ -21,6 +21,8 @@ const ChatBar = ({socket}:any) => {
     });
   }, [socket, users]);
 
+  
+
   console.log(users);
 
   return (
