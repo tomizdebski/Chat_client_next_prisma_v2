@@ -16,7 +16,7 @@
     @apply h-full flex-[0.8];
   }
   .chat__header {
-    @apply mt-[30px] mb-5 mx-0;
+    @apply mt-[30px] mb-5 mx-0 font-bold;
   }
   .chat__users > * {
     @apply text-[#607eaa] text-sm mb-2.5;

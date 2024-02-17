@@ -24,3 +24,8 @@ export interface IMessage {
     }[],
     session: any
 }
+
+export interface IUser {
+  userName: string;
+  socketID: string;
+}
