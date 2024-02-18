@@ -2,7 +2,7 @@
 
 import { postData } from "../action";
 import { useState } from "react";
-import { iAppProps } from "./Chat";
+import  iAppProps  from "./Chat";
 
 export default function Form({ socket, data, session }: { socket: any; data: any; session: any }) {
 
