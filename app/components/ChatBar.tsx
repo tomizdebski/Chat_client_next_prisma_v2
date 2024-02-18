@@ -31,7 +31,7 @@ const ChatBar = ({socket}:any) => {
         <h4 className="chat__header">Aktywni użytkownicy</h4>
         <div className="chat__users">
           {users.map((user) => (
-            <div className='flex gap-2 items-center'>
+            <div key={user.socketID} className='flex gap-2 items-center'>
             <Image src={user.image} alt="user" width={30} height={30} className="rounded-full" />
             <p className="text-black">{user.userName}</p>
             </div>
